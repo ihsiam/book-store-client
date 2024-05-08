@@ -7,6 +7,7 @@ import Home from "../Pages/Home";
 import DashBoardLayout from "../admin/DashBoardLayout";
 import Dashboard from "../admin/Dashboard";
 import EditBook from "../admin/EditBook";
+import LogIn from "../admin/LogIn";
 import ManageBook from "../admin/ManageBook";
 import UploadBook from "../admin/UploadBook";
 import BookDetails from "../components/Home/BookDetails";
@@ -38,7 +39,11 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/admin/dashboard",
+    path: "/admin/login",
+    element: <LogIn />,
+  },
+  {
+    path: "/admin",
     element: <DashBoardLayout />,
     errorElement: <ErrorPage />,
     children: [

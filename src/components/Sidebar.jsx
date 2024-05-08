@@ -26,7 +26,7 @@ export default function Sidebar() {
       icon: <FaCloudUploadAlt />,
     },
     {
-      path: "/admin/dashboard",
+      path: "/admin/login",
       title: "Sign Out",
       icon: <FaSignOutAlt />,
     },
