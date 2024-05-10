@@ -4,13 +4,15 @@ import About from "../Pages/About";
 import Books from "../Pages/Books";
 import ErrorPage from "../Pages/ErrorPage";
 import Home from "../Pages/Home";
-import DashBoardLayout from "../admin/DashBoardLayout";
-import Dashboard from "../admin/Dashboard";
-import EditBook from "../admin/EditBook";
-import LogIn from "../admin/LogIn";
-import ManageBook from "../admin/ManageBook";
-import UploadBook from "../admin/UploadBook";
+import DashBoardLayout from "../Pages/admin/DashBoardLayout";
+import Dashboard from "../Pages/admin/Dashboard";
+import EditBook from "../Pages/admin/EditBook";
+import LogIn from "../Pages/admin/LogIn";
+import LogOut from "../Pages/admin/LogOut";
+import ManageBook from "../Pages/admin/ManageBook";
+import UploadBook from "../Pages/admin/UploadBook";
 import BookDetails from "../components/Home/BookDetails";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -44,7 +46,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <DashBoardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashBoardLayout />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
@@ -64,6 +70,10 @@ const router = createBrowserRouter([
         element: <EditBook />,
         loader: ({ params }) =>
           fetch(`https://book-store-server-delta.vercel.app/book/${params.id}`),
+      },
+      {
+        path: "/admin/dashboard/logout",
+        element: <LogOut />,
       },
     ],
   },

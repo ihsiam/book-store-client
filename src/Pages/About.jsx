@@ -9,8 +9,8 @@ export default function About() {
             className="w-[250px] md:w-[350px]"
           />
         </div>
-        <div className="mt-5 md:mt-0 w-full md:w-1/2 lg:w-2/3 md:px-10 flex flex-col justify-normal md:justify-around gap-5 md:gap-0">
-          <h1 className="text-2xl md:text-5xl text-[#AF9962] font-semibold">
+        <div className="mt-5 md:mt-0 w-full md:w-1/2 lg:w-2/3 md:px-10 flex flex-col justify-normal md:justify-around gap-5 md:gap-2 lg:gap-0">
+          <h1 className="text-2xl md:text-3xl lg:text-5xl text-[#AF9962] font-semibold">
             We make books great again. Just kidding, books were always great!
           </h1>
           <h1 className="text-base font-thin">

@@ -1,25 +1,43 @@
 import { useState } from "react";
-import { BookCtg } from "../utility/utility";
+import { useLoaderData, useParams } from "react-router-dom";
+import { BookCtg } from "../../utility/utility";
 
-export default function UploadBook() {
-  const [ctg, setCtg] = useState(BookCtg[0]);
+export default function EditBook() {
+  // get id from header
+  const { id } = useParams();
 
+  //get book data from loader
+  const {
+    bookTitle,
+    authorName,
+    imageURL,
+    category,
+    bookDescription,
+    bookPDFURL,
+  } = useLoaderData();
+
+  // set ctg
+  const [ctg, setCtg] = useState(category);
+
+  // handle change
   const handleCtg = (e) => {
     setCtg(e.target.value);
   };
 
+  // handle form
   const handleForm = (e) => {
     e.preventDefault();
-    const formInfo = e.target;
+    const form = e.target;
 
-    const bookTitle = formInfo.bookTitle.value;
-    const authorName = formInfo.authorName.value;
-    const imageURL = formInfo.imageURL.value;
-    const category = formInfo.category.value;
-    const bookDescription = formInfo.bookDescription.value;
-    const bookPDFURL = formInfo.bookPDFURL.value;
+    const bookTitle = form.bookTitle.value;
+    const authorName = form.authorName.value;
+    const imageURL = form.imageURL.value;
+    const category = form.category.value;
+    const bookDescription = form.bookDescription.value;
+    const bookPDFURL = form.bookPDFURL.value;
 
-    const bookObj = {
+    // book obj
+    const updateBookObj = {
       bookTitle,
       authorName,
       imageURL,
@@ -28,24 +46,29 @@ export default function UploadBook() {
       bookPDFURL,
     };
 
-    fetch("https://book-store-server-delta.vercel.app/uploadBook", {
-      method: "POST",
+    // get token
+    const token = localStorage.getItem("Token");
+
+    // req sent
+    fetch(`https://book-store-server-delta.vercel.app/book/${id}`, {
+      method: "PATCH",
       headers: {
         "Content-type": "application/json",
+        authorization: "Bearer " + token,
       },
-      body: JSON.stringify(bookObj),
+      body: JSON.stringify(updateBookObj),
     })
       .then((res) => res.json())
       .then(() => {
-        alert("Uploaded succesfully");
-        formInfo.reset();
+        alert("Updated succesfully");
+        form.reset();
       });
   };
 
   return (
     <div className="bg-gray-50 md:shadow rounded px-2 py-3 md:px-10 md:py-5">
       <h1 className="text-3xl md:text-5xl font-bold text-center mt-1 md:mt-5">
-        Upload Book
+        Edit Details
       </h1>
 
       <form
@@ -56,6 +79,7 @@ export default function UploadBook() {
           <input
             className="w-full md:w-1/4 h-10 focus:outline-0 rounded p-2 text-lg border-2 border-black"
             type="text"
+            defaultValue={bookTitle}
             name="bookTitle"
             placeholder="Title"
           />
@@ -63,6 +87,7 @@ export default function UploadBook() {
           <input
             className="w-full md:w-1/4 h-10 focus:outline-0 rounded p-2 text-lg border-2 border-black"
             type="text"
+            defaultValue={authorName}
             name="authorName"
             placeholder="Author"
           />
@@ -85,6 +110,7 @@ export default function UploadBook() {
         <input
           className="w-full h-10 focus:outline-0 rounded p-2 text-lg border-2 border-black"
           type="text"
+          defaultValue={imageURL}
           name="imageURL"
           placeholder="Image URL"
         />
@@ -92,6 +118,7 @@ export default function UploadBook() {
         <input
           className="w-full h-10 focus:outline-0 rounded p-2 text-lg border-2 border-black"
           type="text"
+          defaultValue={bookPDFURL}
           name="bookPDFURL"
           placeholder="PDF URL"
         />
@@ -99,6 +126,7 @@ export default function UploadBook() {
         <textarea
           className="w-full h-64 resize-none focus:outline-0 rounded p-2 text-lg border-2 border-black"
           name="bookDescription"
+          defaultValue={bookDescription}
           id=""
           placeholder="Description"
         ></textarea>
@@ -107,7 +135,7 @@ export default function UploadBook() {
           className="bg-gray-100 hover:bg-gray-200 w-fit border-2 border-black px-4 py-2 rounded-xl"
           type="submit"
         >
-          Upload
+          Update
         </button>
       </form>
     </div>

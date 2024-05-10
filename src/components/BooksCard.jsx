@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { fetcher } from "../utility/utility";
 
 export default function BooksCard() {
+  // get books data
   const { data } = useSWR(
     "https://book-store-server-delta.vercel.app/allBooks",
     fetcher,

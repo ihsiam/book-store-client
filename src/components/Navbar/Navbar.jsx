@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import Nav from "./Nav";
 
 export default function Navbar() {
+  // responsive btn
   const [menu, setMenu] = useState(false);
 
   return (

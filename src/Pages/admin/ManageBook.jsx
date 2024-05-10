@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import BookTable from "../components/BookTable";
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
+import BookTable from "../../components/admin/BookTable";
 
 export default function ManageBook() {
   return (

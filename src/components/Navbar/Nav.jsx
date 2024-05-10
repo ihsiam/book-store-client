@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
 export default function Nav() {
+  // path and title
   const menuItem = [
     {
       path: "/",
@@ -15,6 +16,7 @@ export default function Nav() {
       title: "Books",
     },
   ];
+
   return (
     <>
       {menuItem.map((item) => (

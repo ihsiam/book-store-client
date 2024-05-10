@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import useSWR from "swr";
-import { fetcher } from "../utility/utility";
+import { fetcher } from "../../utility/utility";
 
 export default function BookTable() {
+  // load book data
   const { data } = useSWR(
     "https://book-store-server-delta.vercel.app/allBooks",
     fetcher,
@@ -11,13 +12,21 @@ export default function BookTable() {
     }
   );
 
+  // delete function
   const handleDelete = (id) => {
+    // get token
+    const token = localStorage.getItem("Token");
+
+    // req handle
     fetch(`https://book-store-server-delta.vercel.app/book/${id}`, {
       method: "DELETE",
+      headers: {
+        authorization: "Bearer " + token,
+      },
     })
       .then((res) => res.json())
       .then(() => {
-        alert("Uploaded succesfully");
+        alert("Deleted succesfully");
         window.location.reload();
       });
   };

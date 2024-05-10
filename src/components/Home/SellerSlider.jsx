@@ -15,6 +15,7 @@ import "../../assets/style/sellerSlider.css";
 import { Pagination } from "swiper/modules";
 
 export default function SellerSlider({ start, end }) {
+  // get book data
   const { data } = useSWR(
     "https://book-store-server-delta.vercel.app/allBooks",
     fetcher,
@@ -23,6 +24,7 @@ export default function SellerSlider({ start, end }) {
     }
   );
 
+  // slice book obj
   const bestBook = data.slice(start, end);
 
   return (

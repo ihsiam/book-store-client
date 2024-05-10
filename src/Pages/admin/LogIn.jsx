@@ -1,5 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
 export default function LogIn() {
+  // for navigation
+  const navigate = useNavigate();
+
+  // remove prev token
+  localStorage.removeItem("Token");
+  localStorage.setItem("Token", "");
+
+  // login function
   const handleLogin = (e) => {
+    // collect data from from
     e.preventDefault();
     const loginInfo = e.target;
 
@@ -10,7 +21,20 @@ export default function LogIn() {
       email,
       pass,
     };
-    console.log(user);
+
+    // send data
+    fetch("https://book-store-server-delta.vercel.app/login", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        localStorage.setItem("Token", res);
+        navigate("/admin/dashboard");
+      });
   };
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">

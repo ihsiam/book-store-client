@@ -1,5 +1,4 @@
-import WeekChart from "../components/admin/WeekChart";
-import { visitorDes } from "../utility/utility";
+import { visitorDes } from "../../utility/utility";
 
 export default function Dashboard() {
   return (
@@ -22,7 +21,6 @@ export default function Dashboard() {
           </div>
         ))}
       </div>
-      <WeekChart />
     </div>
   );
 }

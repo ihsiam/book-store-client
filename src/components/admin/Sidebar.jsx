@@ -4,11 +4,16 @@ import { FaBarsStaggered } from "react-icons/fa6";
 import { IoMdSettings } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import Profile from "../assets/img/profile.jpg";
+import { useAuth } from "../../utility/Auth";
 
 export default function Sidebar() {
+  // get user data
+  const user = useAuth();
+
+  // responsive btn
   const [open, setOpen] = useState(false);
 
+  // path and title
   const menuItem = [
     {
       path: "/admin/dashboard",
@@ -26,7 +31,7 @@ export default function Sidebar() {
       icon: <FaCloudUploadAlt />,
     },
     {
-      path: "/admin/login",
+      path: "/admin/dashboard/logout",
       title: "Sign Out",
       icon: <FaSignOutAlt />,
     },
@@ -39,8 +44,8 @@ export default function Sidebar() {
           <FaBarsStaggered className="md:hidden" />
         </button>
         <div className="md:px-2 md:py-1 flex items-center gap-2">
-          <img src={Profile} className="rounded-full w-10 h-10" />
-          <h1 className="hidden md:block">User</h1>
+          <img src={user.img} className="rounded-full w-10 h-10" />
+          <h1 className="hidden md:block">{user.user}</h1>
         </div>
       </div>
 

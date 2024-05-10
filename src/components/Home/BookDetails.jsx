@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 
 export default function BookDetails() {
+  // load data from loader
   const {
     _id,
     bookTitle,
@@ -10,6 +11,7 @@ export default function BookDetails() {
     bookDescription,
     bookPDFURL,
   } = useLoaderData();
+
   return (
     <div key={_id} className="mt-5 md:mt-10 px-4 md:px-24">
       <div className="flex flex-col md:flex-row gap-5 md:gap-10 w-full">
