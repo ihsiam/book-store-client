@@ -30,12 +30,25 @@ export default function LogIn() {
       },
       body: JSON.stringify(user),
     })
-      .then((res) => res.json())
       .then((res) => {
+        // login error handle
+        if (!res.ok) {
+          throw new Error("Incorrect email or password");
+        }
+        return res.json();
+      })
+      .then((res) => {
+        // token set to browser local storage
         localStorage.setItem("Token", res);
+        // navigate to admin dashboard
         navigate("/admin/dashboard");
+      })
+      .catch((error) => {
+        // Display the error message
+        alert(error.message);
       });
   };
+
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
       <h1 className="text-3xl font-bold">Log In</h1>
@@ -48,7 +61,7 @@ export default function LogIn() {
         />
         <input
           className="w-full h-10 focus:outline-0 rounded p-2 text-lg border-2 border-black"
-          type="text"
+          type="password"
           placeholder="Password"
           name="pass"
         />
