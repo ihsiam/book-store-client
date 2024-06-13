@@ -4,11 +4,12 @@ import { FaBarsStaggered } from "react-icons/fa6";
 import { IoMdSettings } from "react-icons/io";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../utility/Auth";
+import { useAuth } from "../../provider/UseAuth";
 
 export default function Sidebar() {
   // get user data
-  const user = useAuth();
+  const { isAuthorizedUser } = useAuth();
+  const user = isAuthorizedUser();
 
   // responsive btn
   const [open, setOpen] = useState(false);

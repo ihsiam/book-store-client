@@ -1,15 +1,24 @@
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../provider/UseAuth";
 
 export default function LogIn() {
   // for navigation
   const navigate = useNavigate();
 
+  // navigation function
+  const nav = () => {
+    navigate("/admin/dashboard");
+  };
+
   // remove prev token
   localStorage.removeItem("Token");
   localStorage.setItem("Token", "");
 
-  // login function
-  const handleLogin = (e) => {
+  // login function distructure
+  const { login } = useAuth();
+
+  // login handle
+  const handleLogin = async (e) => {
     // collect data from from
     e.preventDefault();
     const loginInfo = e.target;
@@ -21,32 +30,7 @@ export default function LogIn() {
       email,
       pass,
     };
-
-    // send data
-    fetch("https://book-store-server-delta.vercel.app/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => {
-        // login error handle
-        if (!res.ok) {
-          throw new Error("Incorrect email or password");
-        }
-        return res.json();
-      })
-      .then((res) => {
-        // token set to browser local storage
-        localStorage.setItem("Token", res);
-        // navigate to admin dashboard
-        navigate("/admin/dashboard");
-      })
-      .catch((error) => {
-        // Display the error message
-        alert(error.message);
-      });
+    login(user, nav);
   };
 
   return (
